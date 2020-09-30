@@ -1,8 +1,8 @@
-# _SMTP_X-header_patch
+## _SMTP_X-header_patch
 This iRule is used to insert an X-Header into an SMTP email stream
 
 
-additional resources to add STARTTLS support:
+Additional resources to add STARTTLS support:
  * irulsology-smtp-start-tls[link](https://devcentral.f5.com/s/articles/iruleologyndashsmtp-start-tls)
  * SSL_enable [link](https://clouddocs.f5.com/api/irules/SSL__enable.html)
  * starttls server smtp with cleartext and starttls client support [link](https://devcentral.f5.com/s/articles/starttls-server-smtp-with-cleartext-and-starttls-client-support-1209)
@@ -10,7 +10,8 @@ additional resources to add STARTTLS support:
  * How to make an echo server with bash [link](https://stackoverflow.com/questions/8375860/how-to-make-an-echo-server-with-bash)
  * SMTP starttls [link](https://devcentral.f5.com/s/articles/smtpstarttls)
 
-when CLIENT_ACCEPTED {
+# Sample Code
+`when CLIENT_ACCEPTED {
     set ehlo 0
     SSL::disable
 }
@@ -39,5 +40,4 @@ when SERVER_DATA {
     }
     TCP::release
     clientside { TCP::collect }
-}
-
+}`
