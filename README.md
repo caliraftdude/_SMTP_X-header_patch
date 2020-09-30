@@ -3,12 +3,12 @@ This iRule is used to insert an X-Header into an SMTP email stream
 
 
 additional resources to add STARTTLS support:
-https://devcentral.f5.com/s/articles/iruleologyndashsmtp-start-tls
-https://clouddocs.f5.com/api/irules/SSL__enable.html
-https://devcentral.f5.com/s/articles/starttls-server-smtp-with-cleartext-and-starttls-client-support-1209
-http://www.postfix.org/TLS_README.html
-https://stackoverflow.com/questions/8375860/how-to-make-an-echo-server-with-bash
-https://devcentral.f5.com/s/articles/smtpstarttls
+irulsology-smtp-start-tls[link](https://devcentral.f5.com/s/articles/iruleologyndashsmtp-start-tls)
+SSL_enable [link](https://clouddocs.f5.com/api/irules/SSL__enable.html)
+starttls server smtp with cleartext and starttls client support [link](https://devcentral.f5.com/s/articles/starttls-server-smtp-with-cleartext-and-starttls-client-support-1209)
+Postfix TLS readme [link](http://www.postfix.org/TLS_README.html)
+How to make an echo server with bash [link](https://stackoverflow.com/questions/8375860/how-to-make-an-echo-server-with-bash)
+SMTP starttls [link](https://devcentral.f5.com/s/articles/smtpstarttls)
 
 when CLIENT_ACCEPTED {
     set ehlo 0
