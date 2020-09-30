@@ -11,7 +11,7 @@ Additional resources to add STARTTLS support:
  * SMTP starttls [link](https://devcentral.f5.com/s/articles/smtpstarttls)
 
 # Sample Code
-```
+```tcl
     when CLIENT_ACCEPTED {
         set ehlo 0
         SSL::disable
