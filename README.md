@@ -11,33 +11,35 @@ Additional resources to add STARTTLS support:
  * SMTP starttls [link](https://devcentral.f5.com/s/articles/smtpstarttls)
 
 # Sample Code
-`when CLIENT_ACCEPTED {
-    set ehlo 0
-    SSL::disable
-}
-when SERVER_CONNECTED {
-    TCP::collect
-}
-when CLIENT_DATA {
-    set lcpayload [string tolower [TCP::payload]]
-    if { $lcpayload starts_with "ehlo" } {
-        set ehlo 1
-        serverside { TCP::collect }
-        TCP::release
+`
+    when CLIENT_ACCEPTED {
+        set ehlo 0
+        SSL::disable
+    }
+    when SERVER_CONNECTED {
         TCP::collect
-    } elseif { $lcpayload starts_with "starttls" } {
-        TCP::respond "220 Ready to start TLS\r\n"
-        TCP::payload replace 0 [TCP::payload length] ""
-        TCP::release
-        SSL::enable
-    } else {
-        TCP::release
     }
-}
-when SERVER_DATA {
-    if { $ehlo == 1 and not([string tolower [TCP::payload]] contains "starttls") } {
-        TCP::payload replace 0 0 "250-STARTTLS\r\n"
+    when CLIENT_DATA {
+        set lcpayload [string tolower [TCP::payload]]
+        if { $lcpayload starts_with "ehlo" } {
+            set ehlo 1
+            serverside { TCP::collect }
+            TCP::release
+            TCP::collect
+        } elseif { $lcpayload starts_with "starttls" } {
+            TCP::respond "220 Ready to start TLS\r\n"
+            TCP::payload replace 0 [TCP::payload length] ""
+            TCP::release
+            SSL::enable
+        } else {
+            TCP::release
+        }
     }
-    TCP::release
-    clientside { TCP::collect }
-}`
+    when SERVER_DATA {
+        if { $ehlo == 1 and not([string tolower [TCP::payload]] contains "starttls") } {
+            TCP::payload replace 0 0 "250-STARTTLS\r\n"
+        }
+        TCP::release
+        clientside { TCP::collect }
+    }
+`
